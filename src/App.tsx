@@ -16,6 +16,7 @@ const App = () => {
     return ipRegex.test(ipaddress || '')
   }
   const getLocation = async () => {
+    setLocation(null)
     try {
       const param = isIpAddress(search.current?.value) ? `ipAddress=${search.current?.value}` : `domain=${search.current?.value}`
       const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${import.meta.env.VITE_API_KEY}&${param}`
@@ -26,6 +27,11 @@ const App = () => {
       alert(error.message)
     }
   }
+
+  useEffect(() => {
+    getLocation()
+  }, [])
+  
 
   return (
     <>
